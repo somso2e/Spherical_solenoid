@@ -7,22 +7,14 @@ BZ2 = zeros(M, M);
 
 parfor column = 1:m
     y = -n + (column - 1) .* step;
-
     Bzrow = zeros(M, 1);
-
     for row = 1:m
-
         x = -n + (row - 1) .* step;
-
-        Bz = Magnetic_field_solenoid_cartesian_BZonly(x, y, 0, 1);
-
+        Bz = calMagneticField(x, y, 0, 1, 'z', "cartesian");
         Bzrow(row) = Bz;
     end
-
     BZ2(:, column) = Bzrow;
-
 end
-
 % % % % % % %
 for i = 1:m
     BZ2(:, M + 1 - i) = BZ2(:, i);
@@ -31,7 +23,8 @@ end
 for i = 1:m
     BZ2(M + 1 - i, :) = BZ2(i, :);
 end
-
+% % % % % % % %
+save BZ2.mat
 % % % % % % % %
 figure(1)
 xp = -n:step:n;
@@ -44,7 +37,7 @@ contour(xp, yp, BZ2, T2);
 axis([-n n -n n]);
 pbaspect([1 1 1]);
 
-solenoid_shape_XY();
+drawSolenoidShapeXY();
 
 xlabel('X-axis', 'fontsize', 14);
 ylabel('Y-axis', 'fontsize', 14);

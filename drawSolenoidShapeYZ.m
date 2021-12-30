@@ -1,4 +1,4 @@
-function solenoid_shape_YZ()
+function drawSolenoidShapeYZ()
     theta = 0:0.1:2 * pi;
     r = 5;
     x1 = r .* cos(theta);
